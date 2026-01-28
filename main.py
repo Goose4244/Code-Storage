@@ -22,7 +22,7 @@ run_game = True
 # ---------------------------
 # Desired ground size on screen
 # ---------------------------
-ground_sprite = pygame.image.load("ground_800x250 (1).png").convert_alpha()
+ground_sprite = pygame.image.load("assets/ground_800x250 (1).png").convert_alpha()
 GROUND_HEIGHT = 250
 GROUND_Y = SCREEN_HEIGHT - GROUND_HEIGHT
 
@@ -32,7 +32,7 @@ GROUND_Y = SCREEN_HEIGHT - GROUND_HEIGHT
 # ---------------------------
 # This becomes our new "Master" reference for the gorilla's size
 GORILLA_BASE_SCALE = 0.44  # Combined scale (original 0.10 * 0.70)
-gorilla_idle_sprite = pygame.image.load("gorilla_idle.png").convert_alpha()
+gorilla_idle_sprite = pygame.image.load("assets/Gorilla_idle_frame.png").convert_alpha()
 
 # Calculate final dimensions based on the idle sprite
 gorilla_width = int(gorilla_idle_sprite.get_width() * GORILLA_BASE_SCALE)
@@ -49,7 +49,7 @@ gorilla_idle_left = pygame.transform.flip(gorilla_idle_sprite, True, False)
 # ---------------------------
 GORILLA_WALK_SCALE = 0.70  # scale down to ~10% of original
 GORILLA_WALK_FRAMES = 6
-gorilla_walk_sheet = pygame.image.load("gorilla_walk.png").convert_alpha()
+gorilla_walk_sheet = pygame.image.load("assets/Gorilla_Walking_Animation_SpriteSheet_Alt.png").convert_alpha()
 
 walk_sheet_width = gorilla_walk_sheet.get_width()
 walk_sheet_height = gorilla_walk_sheet.get_height()
