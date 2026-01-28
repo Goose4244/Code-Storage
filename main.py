@@ -32,7 +32,7 @@ GROUND_Y = SCREEN_HEIGHT - GROUND_HEIGHT
 # ---------------------------
 # This becomes our new "Master" reference for the gorilla's size
 GORILLA_BASE_SCALE = 0.44  # Combined scale (original 0.10 * 0.70)
-gorilla_idle_sprite = pygame.image.load("assets/Gorilla_idle_frame.png").convert_alpha()
+gorilla_idle_sprite = pygame.image.load("assets/gorilla_idle.png").convert_alpha()
 
 # Calculate final dimensions based on the idle sprite
 gorilla_width = int(gorilla_idle_sprite.get_width() * GORILLA_BASE_SCALE)
@@ -49,7 +49,7 @@ gorilla_idle_left = pygame.transform.flip(gorilla_idle_sprite, True, False)
 # ---------------------------
 GORILLA_WALK_SCALE = 0.70  # scale down to ~10% of original
 GORILLA_WALK_FRAMES = 6
-gorilla_walk_sheet = pygame.image.load("assets/Gorilla_Walking_Animation_SpriteSheet_Alt.png").convert_alpha()
+gorilla_walk_sheet = pygame.image.load("assets/gorilla_walking_alt.png").convert_alpha()
 
 walk_sheet_width = gorilla_walk_sheet.get_width()
 walk_sheet_height = gorilla_walk_sheet.get_height()
@@ -77,7 +77,7 @@ GORILLA_ANIM_SPEED = 0.18
 INTERACT_FRAMES = 6
 INTERACT_SCALE = 0.35
 
-interact_sheet = pygame.image.load("gorilla_pounding.png").convert_alpha()
+interact_sheet = pygame.image.load("assets/gorilla_pounding.png").convert_alpha()
 
 sheet_width = interact_sheet.get_width()
 sheet_height = interact_sheet.get_height()
@@ -110,7 +110,7 @@ gorilla_interaction = GorillaInteraction(
 # ---------------------------
 # Load & Prepare Palm Tree  Sprite
 # ---------------------------
-palm_tree_sprite = pygame.image.load("palm_tree.png").convert_alpha()
+palm_tree_sprite = pygame.image.load("assets/palm_tree.png").convert_alpha()
 PALM_TREE_SCALE = 0.23  # scale down to ~19% of original
 palm_tree_sprite = pygame.transform.scale(
     palm_tree_sprite,
@@ -121,20 +121,91 @@ palm_tree_width = palm_tree_sprite.get_width()
 palm_tree_height = palm_tree_sprite.get_height()
 palm_tree_sprite_left = pygame.transform.flip(palm_tree_sprite, True, False)
 
+# ---------------------------
+# Load Tree Damage + Explosion + Stump Sprites (Independent Scaling)
+# ---------------------------
+
+TREE_DAMAGED_SCALE = 0.22     # <-- tweak freely
+TREE_STUMP_SCALE   = 0.52     # <-- tweak freely
+TREE_EXPLODE_SCALE = 0.6     # <-- tweak freely
+# Explosion position tuning offsets
+EXPLODE_X_OFFSET = 0     # tweak left/right
+EXPLODE_Y_OFFSET = 0     # tweak up/down
+
+# ---- Damaged Tree ----
+tree_damaged_original = pygame.image.load("assets/palm_tree_damaged.png").convert_alpha()
+
+tree_damaged_width  = int(tree_damaged_original.get_width()  * TREE_DAMAGED_SCALE)
+tree_damaged_height = int(tree_damaged_original.get_height() * TREE_DAMAGED_SCALE)
+
+tree_damaged_sprite = pygame.transform.scale(
+    tree_damaged_original,
+    (tree_damaged_width, tree_damaged_height)
+)
+
+# ---- Tree Stump ----
+tree_stump_original = pygame.image.load("assets/palm_tree_stump.png").convert_alpha()
+
+tree_stump_width  = int(tree_stump_original.get_width()  * TREE_STUMP_SCALE)
+tree_stump_height = int(tree_stump_original.get_height() * TREE_STUMP_SCALE)
+
+tree_stump_sprite = pygame.transform.scale(
+    tree_stump_original,
+    (tree_stump_width, tree_stump_height)
+)
+
+# ---- Explosion Animation ----
+TREE_EXPLODE_FRAMES = 6
+TREE_EXPLODE_ANIM_SPEED = 0.16
+
+tree_explode_original = pygame.image.load("assets/palm_tree_explosion.png").convert_alpha()
+
+explode_sheet_width  = tree_explode_original.get_width()
+explode_sheet_height = tree_explode_original.get_height()
+TREE_EXPLODE_FRAME_WIDTH = explode_sheet_width // TREE_EXPLODE_FRAMES
+
+tree_explode_frames = []
+
+
+for i in range(TREE_EXPLODE_FRAMES):
+    frame = tree_explode_original.subsurface(
+        pygame.Rect(
+            i * TREE_EXPLODE_FRAME_WIDTH,
+            0,
+            TREE_EXPLODE_FRAME_WIDTH,
+            explode_sheet_height
+        )
+    )
+
+    scaled_width  = int(frame.get_width()  * TREE_EXPLODE_SCALE)
+    scaled_height = int(frame.get_height() * TREE_EXPLODE_SCALE)
+
+    frame = pygame.transform.scale(frame, (scaled_width, scaled_height))
+    tree_explode_frames.append(frame)
+
+
+# ---------------------------
+# Explosion Frame Anchor Size (Prevents Jitter)
+# ---------------------------
+EXPLODE_ANCHOR_WIDTH = max(frame.get_width() for frame in tree_explode_frames)
+EXPLODE_ANCHOR_HEIGHT = max(frame.get_height() for frame in tree_explode_frames)
+
 
 # ---------------------------
 # Palm Tree Objects
 # ---------------------------
 trees = [
-    {"pos": (0,   GROUND_Y - palm_tree_height + 100), "alive": True},
-    {"pos": (85,  GROUND_Y - palm_tree_height + 100), "alive": True},
-    {"pos": (175, GROUND_Y - palm_tree_height + 100), "alive": True},
-    {"pos": (290, GROUND_Y - palm_tree_height + 100), "alive": True},
-    {"pos": (400, GROUND_Y - palm_tree_height + 100), "alive": True},
-    {"pos": (515, GROUND_Y - palm_tree_height + 100), "alive": True},
-    {"pos": (625, GROUND_Y - palm_tree_height + 100), "alive": True},
-    {"pos": (700, GROUND_Y - palm_tree_height + 100), "alive": True},
+    {"pos": (0,   GROUND_Y - palm_tree_height + 100), "state": "alive", "anim_index": 0.0, "explode_anchor": None},
+    {"pos": (85,  GROUND_Y - palm_tree_height + 100), "state": "alive", "anim_index": 0.0, "explode_anchor": None},
+    {"pos": (175, GROUND_Y - palm_tree_height + 100), "state": "alive", "anim_index": 0.0, "explode_anchor": None},
+    {"pos": (290, GROUND_Y - palm_tree_height + 100), "state": "alive", "anim_index": 0.0, "explode_anchor": None},
+    {"pos": (400, GROUND_Y - palm_tree_height + 100), "state": "alive", "anim_index": 0.0, "explode_anchor": None},
+    {"pos": (515, GROUND_Y - palm_tree_height + 100), "state": "alive", "anim_index": 0.0, "explode_anchor": None},
+    {"pos": (625, GROUND_Y - palm_tree_height + 100), "state": "alive", "anim_index": 0.0, "explode_anchor": None},
+    {"pos": (700, GROUND_Y - palm_tree_height + 100), "state": "alive", "anim_index": 0.0, "explode_anchor": None},
 ]
+
+
 
 # ---------------------------
 # Load & Prepare Sunbird Sprite Sheet
@@ -142,7 +213,7 @@ trees = [
 SUNBIRD_SCALE = 0.128   # 10% of original size (tweak this)
 
 NUM_FRAMES = 6
-sunbird_sheet = pygame.image.load("sunbird_6_frames.png").convert_alpha()
+sunbird_sheet = pygame.image.load("assets/sunbird_6_frames.png").convert_alpha()
 
 sheet_width = sunbird_sheet.get_width()
 sheet_height = sunbird_sheet.get_height()
@@ -214,12 +285,12 @@ gorilla_facing_right = True
 # ---------------------------
 # Gorilla Interaction Timer
 # ---------------------------
-INTERACT_MIN_TIME = 6 * FPS
-INTERACT_MAX_TIME = 12 * FPS
+INTERACT_MIN_TIME = 15 * FPS
+INTERACT_MAX_TIME = 30 * FPS
 interact_timer = random.randint(INTERACT_MIN_TIME, INTERACT_MAX_TIME)
 
 trees_destroyed = 0
-MAX_TREES_DESTROYED = 2
+MAX_TREES_DESTROYED = 4
 
 
 # Pause duration range (5-8 seconds)
@@ -284,7 +355,8 @@ while run_game:
         # Check if it's time to destroy a tree
         if interact_timer <= 0 and trees_destroyed < MAX_TREES_DESTROYED:
             # Find the nearest alive tree
-            alive_trees = [t for t in trees if t["alive"]]
+            alive_trees = [t for t in trees if t["state"] == "alive"]
+
             if alive_trees:
                 # Calculate distances and find the closest one
                 target_tree = min(alive_trees, key=lambda t: abs(t["pos"][0] - gorilla_x))
@@ -340,11 +412,14 @@ while run_game:
         interaction_frame, interaction_finished = gorilla_interaction.update()
         
         if interaction_finished:
-            target_tree["alive"] = False
+            target_tree["state"] = "damaged"
+            target_tree["anim_index"] = 0.0
+
             trees_destroyed += 1
             interact_timer = random.randint(INTERACT_MIN_TIME, INTERACT_MAX_TIME)
             gorilla_state = WALKING
-            interaction_frame = None # Reset for next time
+            interaction_frame = None
+
 
 
     # ---------------------------
@@ -355,6 +430,16 @@ while run_game:
         (gorilla_state == WALKING and gorilla_pause_frames == 0 and (sim_keys[pygame.K_LEFT] or sim_keys[pygame.K_RIGHT])) 
         or gorilla_state == APPROACHING
     )
+
+    # ---------------------------
+    # Update Gorilla Walk Animation
+    # ---------------------------
+    if gorilla_is_moving and gorilla_state != INTERACTING:
+        gorilla_walk_frame_index = (
+            gorilla_walk_frame_index + GORILLA_ANIM_SPEED
+        ) % GORILLA_WALK_FRAMES
+    else:
+        gorilla_walk_frame_index = 0
 
     # --- Edge Handling ---
     if gorilla_x <= 0:
@@ -395,6 +480,37 @@ while run_game:
             current_sunbird_frame, True, False
         )
 
+    # ---------------------------
+    # Tree Animation Updates
+    # ---------------------------
+    for tree in trees:
+
+        # Damaged stays visible briefly before exploding
+        if tree["state"] == "damaged":
+            tree["anim_index"] += 1
+
+        if tree["anim_index"] >= 15:
+            tree["state"] = "exploding"
+            tree["anim_index"] = 0.0
+
+            # Lock explosion anchor once
+            x = tree["pos"][0]
+            anchor_x = x + (palm_tree_width // 2)
+            anchor_y = GROUND_Y - palm_tree_height + 275
+
+            tree["explode_anchor"] = (anchor_x, anchor_y)
+
+
+
+        elif tree["state"] == "exploding":
+            tree["anim_index"] += TREE_EXPLODE_ANIM_SPEED
+
+            if tree["anim_index"] >= TREE_EXPLODE_FRAMES:
+                tree["state"] = "stump"
+                tree["anim_index"] = 0.0
+                tree["explode_anchor"] = None
+
+
 
     # --- Drawing ---
     screen.fill((173, 216, 230))  # Fill in the sky
@@ -406,11 +522,47 @@ while run_game:
     if gorilla_state == EASTER_EGG:
         pygame.draw.circle(screen, (255, 0, 0), (770, 30), 10)   # Red for active script
 
-    # Draw Palm Trees
+    # Draw Palm Trees + Stumps + Explosions
     for i, tree in enumerate(trees):
-        if tree["alive"]:
+
+        x = tree["pos"][0]
+
+        # --- Explosion animation ---
+        if tree["state"] == "exploding":
+            frame = tree_explode_frames[int(tree["anim_index"])]
+
+            anchor_x, anchor_y = tree["explode_anchor"]
+
+            explode_x = anchor_x - (frame.get_width() // 2)
+            explode_y = anchor_y - (frame.get_height() // 2)
+
+            screen.blit(frame, (explode_x, explode_y))
+
+
+
+
+
+        # --- Damaged tree ---
+        elif tree["state"] == "damaged":
+            damaged_y = GROUND_Y - tree_damaged_sprite.get_height() + 100
+            damaged_x = x + (palm_tree_width // 2) - (tree_damaged_sprite.get_width() // 2)
+            screen.blit(tree_damaged_sprite, (damaged_x, damaged_y))
+
+
+        # --- Stump ---
+        elif tree["state"] == "stump":
+            stump_x = x + (palm_tree_width // 2) - (tree_stump_sprite.get_width() // 2)
+            stump_y = GROUND_Y - tree_stump_sprite.get_height() + 32
+            screen.blit(tree_stump_sprite, (stump_x, stump_y))
+
+
+        # --- Normal tree ---
+        elif tree["state"] == "alive":
             sprite = palm_tree_sprite if i % 2 == 0 else palm_tree_sprite_left
             screen.blit(sprite, tree["pos"])
+
+
+
 
 
     # Draw the Ground Sprite
