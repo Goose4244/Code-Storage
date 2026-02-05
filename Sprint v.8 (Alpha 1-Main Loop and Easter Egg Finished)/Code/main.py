@@ -119,9 +119,9 @@ tree_damaged_sprite = pygame.transform.scale(tree_damaged_original, (int(tree_da
 tree_stump_original = pygame.image.load("Sprint v.8 (Alpha 1-Main Loop and Easter Egg Finished)/assets/palm_tree_stump.png").convert_alpha()
 tree_stump_sprite = pygame.transform.scale(tree_stump_original, (int(tree_stump_original.get_width() * TREE_STUMP_SCALE), int(tree_stump_original.get_height() * TREE_STUMP_SCALE)))
 
-TREE_EXPLODE_FRAMES = 6
+TREE_EXPLODE_FRAMES = 5
 TREE_EXPLODE_ANIM_SPEED = 0.16
-tree_explode_original = pygame.image.load("Sprint v.8 (Alpha 1-Main Loop and Easter Egg Finished)/assets/palm_tree_explosion.png").convert_alpha()
+tree_explode_original = pygame.image.load("Sprint v.8 (Alpha 1-Main Loop and Easter Egg Finished)/assets/palm_tree_explosion_alt.png").convert_alpha()
 tree_explode_frames = []
 for i in range(TREE_EXPLODE_FRAMES):
     frame = tree_explode_original.subsurface(pygame.Rect(i * (tree_explode_original.get_width() // TREE_EXPLODE_FRAMES), 0, tree_explode_original.get_width() // TREE_EXPLODE_FRAMES, tree_explode_original.get_height()))
