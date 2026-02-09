@@ -18,15 +18,17 @@ run_game = True
 # ---------------------------
 # Load & Prepare Ground Sprite
 # ---------------------------
-ground_sprite = pygame.image.load("Sprint v.8 (Alpha 1-Main Loop and Easter Egg Finished)/assets/ground_800x250 (1).png").convert_alpha()
+ASSET_ROOT = "Gorilla Simulator/assets/"
+
+ground_sprite = pygame.image.load(f"{ASSET_ROOT}ground_800x250 (1).png").convert_alpha()
 GROUND_HEIGHT = 250
 GROUND_Y = SCREEN_HEIGHT - GROUND_HEIGHT
 
 # ---------------------------
 # Load Idle Sprite & Set Dimensions
 # ---------------------------
-GORILLA_BASE_SCALE = 0.44  
-gorilla_idle_sprite = pygame.image.load("Sprint v.8 (Alpha 1-Main Loop and Easter Egg Finished)/assets/gorilla_idle.png").convert_alpha()
+GORILLA_BASE_SCALE = 0.44
+gorilla_idle_sprite = pygame.image.load(f"{ASSET_ROOT}gorilla_idle.png").convert_alpha()
 
 gorilla_width = int(gorilla_idle_sprite.get_width() * GORILLA_BASE_SCALE)
 gorilla_height = int(gorilla_idle_sprite.get_height() * GORILLA_BASE_SCALE)
@@ -38,9 +40,9 @@ gorilla_idle_left = pygame.transform.flip(gorilla_idle_sprite, True, False)
 # ---------------------------
 # Load Gorilla Walk Animation
 # ---------------------------
-GORILLA_WALK_SCALE = 0.70  
+GORILLA_WALK_SCALE = 0.70
 GORILLA_WALK_FRAMES = 6
-gorilla_walk_sheet = pygame.image.load("Sprint v.8 (Alpha 1-Main Loop and Easter Egg Finished)/assets/gorilla_walking_alt.png").convert_alpha()
+gorilla_walk_sheet = pygame.image.load(f"{ASSET_ROOT}gorilla_walking_alt.png").convert_alpha()
 
 walk_sheet_width = gorilla_walk_sheet.get_width()
 walk_sheet_height = gorilla_walk_sheet.get_height()
@@ -49,7 +51,9 @@ GORILLA_FRAME_HEIGHT = walk_sheet_height
 
 gorilla_walk_frames = []
 for i in range(GORILLA_WALK_FRAMES):
-    frame = gorilla_walk_sheet.subsurface(pygame.Rect(i * GORILLA_FRAME_WIDTH, 0, GORILLA_FRAME_WIDTH, GORILLA_FRAME_HEIGHT))
+    frame = gorilla_walk_sheet.subsurface(
+        pygame.Rect(i * GORILLA_FRAME_WIDTH, 0, GORILLA_FRAME_WIDTH, GORILLA_FRAME_HEIGHT)
+    )
     frame = pygame.transform.scale(frame, (gorilla_width, gorilla_height))
     gorilla_walk_frames.append(frame)
 
@@ -61,79 +65,129 @@ GORILLA_ANIM_SPEED = 0.18
 # ---------------------------
 INTERACT_FRAMES = 6
 INTERACT_SCALE = 0.35
-interact_sheet = pygame.image.load("Sprint v.8 (Alpha 1-Main Loop and Easter Egg Finished)/assets/gorilla_pounding.png").convert_alpha()
+interact_sheet = pygame.image.load(f"{ASSET_ROOT}gorilla_pounding.png").convert_alpha()
 FRAME_WIDTH = interact_sheet.get_width() // INTERACT_FRAMES
 FRAME_HEIGHT = interact_sheet.get_height()
 
 gorilla_interact_frames = []
 for i in range(INTERACT_FRAMES):
-    frame = interact_sheet.subsurface(pygame.Rect(i * FRAME_WIDTH, 0, FRAME_WIDTH, FRAME_HEIGHT))
-    frame = pygame.transform.scale(frame, (int(FRAME_WIDTH * INTERACT_SCALE), int(FRAME_HEIGHT * INTERACT_SCALE)))
+    frame = interact_sheet.subsurface(
+        pygame.Rect(i * FRAME_WIDTH, 0, FRAME_WIDTH, FRAME_HEIGHT)
+    )
+    frame = pygame.transform.scale(
+        frame,
+        (int(FRAME_WIDTH * INTERACT_SCALE), int(FRAME_HEIGHT * INTERACT_SCALE)),
+    )
     gorilla_interact_frames.append(frame)
 
-gorilla_interaction = GorillaInteraction(gorilla_interact_frames, anim_speed=0.25, repeat_count=4)
-
-# --- Easter Egg Assets (Updated Scaling) ---
-HUMAN_SCALE = 0.15  # Tweak this (0.1 to 0.2) to make them look shorter/taller
-harambe_sleeping = pygame.image.load("Sprint v.8 (Alpha 1-Main Loop and Easter Egg Finished)/assets/harambe.png").convert_alpha()
-harambe_sleeping = pygame.transform.scale(harambe_sleeping, (gorilla_width, gorilla_height))
-
-# Load and scale the human sprites
-scared_sprite = pygame.image.load("Sprint v.8 (Alpha 1-Main Loop and Easter Egg Finished)/assets/scared.png").convert_alpha()
-scared_sprite = pygame.transform.scale(
-    scared_sprite, 
-    (int(scared_sprite.get_width() * HUMAN_SCALE), int(scared_sprite.get_height() * HUMAN_SCALE))
+gorilla_interaction = GorillaInteraction(
+    gorilla_interact_frames, anim_speed=0.25, repeat_count=4
 )
 
-surprised_sprite = pygame.image.load("Sprint v.8 (Alpha 1-Main Loop and Easter Egg Finished)/assets/surprised.png").convert_alpha()
+# --- Easter Egg Assets ---
+HUMAN_SCALE = 0.15
+
+harambe_sleeping = pygame.image.load(f"{ASSET_ROOT}harambe.png").convert_alpha()
+harambe_sleeping = pygame.transform.scale(
+    harambe_sleeping, (gorilla_width, gorilla_height)
+)
+
+scared_sprite = pygame.image.load(f"{ASSET_ROOT}scared.png").convert_alpha()
+scared_sprite = pygame.transform.scale(
+    scared_sprite,
+    (
+        int(scared_sprite.get_width() * HUMAN_SCALE),
+        int(scared_sprite.get_height() * HUMAN_SCALE),
+    ),
+)
+
+surprised_sprite = pygame.image.load(f"{ASSET_ROOT}surprised.png").convert_alpha()
 surprised_sprite = pygame.transform.scale(
-    surprised_sprite, 
-    (int(surprised_sprite.get_width() * HUMAN_SCALE), int(surprised_sprite.get_height() * HUMAN_SCALE))
+    surprised_sprite,
+    (
+        int(surprised_sprite.get_width() * HUMAN_SCALE),
+        int(surprised_sprite.get_height() * HUMAN_SCALE),
+    ),
 )
 
 character_x = -100
 character_target_x = 50
-# This ensures the human's feet are at the same "depth" as the gorilla's feet
 character_y_offset = 38
 
 # ---------------------------
-# Load & Prepare Palm Tree Sprite
+# Palm Tree Sprite
 # ---------------------------
-palm_tree_sprite = pygame.image.load("Sprint v.8 (Alpha 1-Main Loop and Easter Egg Finished)/assets/palm_tree.png").convert_alpha()
-PALM_TREE_SCALE = 0.23  
-palm_tree_sprite = pygame.transform.scale(palm_tree_sprite, (int(palm_tree_sprite.get_width() * PALM_TREE_SCALE), int(palm_tree_sprite.get_height() * PALM_TREE_SCALE)))
+palm_tree_sprite = pygame.image.load(f"{ASSET_ROOT}palm_tree.png").convert_alpha()
+PALM_TREE_SCALE = 0.23
+palm_tree_sprite = pygame.transform.scale(
+    palm_tree_sprite,
+    (
+        int(palm_tree_sprite.get_width() * PALM_TREE_SCALE),
+        int(palm_tree_sprite.get_height() * PALM_TREE_SCALE),
+    ),
+)
 palm_tree_width = palm_tree_sprite.get_width()
 palm_tree_height = palm_tree_sprite.get_height()
 palm_tree_sprite_left = pygame.transform.flip(palm_tree_sprite, True, False)
 
 # ---------------------------
-# Load Tree Damage + Explosion + Stump Sprites
+# Tree Damage + Explosion + Stump
 # ---------------------------
 TREE_DAMAGED_SCALE = 0.22
 TREE_STUMP_SCALE = 0.52
 TREE_EXPLODE_SCALE = 0.6
 
-tree_damaged_original = pygame.image.load("Sprint v.8 (Alpha 1-Main Loop and Easter Egg Finished)/assets/palm_tree_damaged.png").convert_alpha()
-tree_damaged_sprite = pygame.transform.scale(tree_damaged_original, (int(tree_damaged_original.get_width() * TREE_DAMAGED_SCALE), int(tree_damaged_original.get_height() * TREE_DAMAGED_SCALE)))
+tree_damaged_original = pygame.image.load(
+    f"{ASSET_ROOT}palm_tree_damaged.png"
+).convert_alpha()
+tree_damaged_sprite = pygame.transform.scale(
+    tree_damaged_original,
+    (
+        int(tree_damaged_original.get_width() * TREE_DAMAGED_SCALE),
+        int(tree_damaged_original.get_height() * TREE_DAMAGED_SCALE),
+    ),
+)
 
-tree_stump_original = pygame.image.load("Sprint v.8 (Alpha 1-Main Loop and Easter Egg Finished)/assets/palm_tree_stump.png").convert_alpha()
-tree_stump_sprite = pygame.transform.scale(tree_stump_original, (int(tree_stump_original.get_width() * TREE_STUMP_SCALE), int(tree_stump_original.get_height() * TREE_STUMP_SCALE)))
+tree_stump_original = pygame.image.load(
+    f"{ASSET_ROOT}palm_tree_stump.png"
+).convert_alpha()
+tree_stump_sprite = pygame.transform.scale(
+    tree_stump_original,
+    (
+        int(tree_stump_original.get_width() * TREE_STUMP_SCALE),
+        int(tree_stump_original.get_height() * TREE_STUMP_SCALE),
+    ),
+)
 
 TREE_EXPLODE_FRAMES = 5
 TREE_EXPLODE_ANIM_SPEED = 0.16
-tree_explode_original = pygame.image.load("Sprint v.8 (Alpha 1-Main Loop and Easter Egg Finished)/assets/palm_tree_explosion_alt.png").convert_alpha()
+tree_explode_original = pygame.image.load(
+    f"{ASSET_ROOT}palm_tree_explosion_alt.png"
+).convert_alpha()
+
 tree_explode_frames = []
+frame_w = tree_explode_original.get_width() // TREE_EXPLODE_FRAMES
+frame_h = tree_explode_original.get_height()
+
 for i in range(TREE_EXPLODE_FRAMES):
-    frame = tree_explode_original.subsurface(pygame.Rect(i * (tree_explode_original.get_width() // TREE_EXPLODE_FRAMES), 0, tree_explode_original.get_width() // TREE_EXPLODE_FRAMES, tree_explode_original.get_height()))
-    frame = pygame.transform.scale(frame, (int(frame.get_width() * TREE_EXPLODE_SCALE), int(frame.get_height() * TREE_EXPLODE_SCALE)))
+    frame = tree_explode_original.subsurface(
+        pygame.Rect(i * frame_w, 0, frame_w, frame_h)
+    )
+    frame = pygame.transform.scale(
+        frame,
+        (
+            int(frame.get_width() * TREE_EXPLODE_SCALE),
+            int(frame.get_height() * TREE_EXPLODE_SCALE),
+        ),
+    )
     tree_explode_frames.append(frame)
 
 # ---------------------------
-# Palm Tree Objects
+# Trees
 # ---------------------------
 trees = [
-    {"pos": (0,   GROUND_Y - palm_tree_height + 100), "state": "alive", "anim_index": 0.0, "explode_anchor": None},
-    {"pos": (85,  GROUND_Y - palm_tree_height + 100), "state": "alive", "anim_index": 0.0, "explode_anchor": None},
+    {"pos": (0, GROUND_Y - palm_tree_height + 100), "state": "alive", "anim_index": 0.0, "explode_anchor": None},
+    {"pos": (85, GROUND_Y - palm_tree_height + 100), "state": "alive", "anim_index": 0.0, "explode_anchor": None},
     {"pos": (175, GROUND_Y - palm_tree_height + 100), "state": "alive", "anim_index": 0.0, "explode_anchor": None},
     {"pos": (290, GROUND_Y - palm_tree_height + 100), "state": "alive", "anim_index": 0.0, "explode_anchor": None},
     {"pos": (400, GROUND_Y - palm_tree_height + 100), "state": "alive", "anim_index": 0.0, "explode_anchor": None},
@@ -143,16 +197,29 @@ trees = [
 ]
 
 # ---------------------------
-# Load & Prepare Sunbird
+# Sunbird
 # ---------------------------
 SUNBIRD_SCALE = 0.128
 NUM_FRAMES = 6
-sunbird_sheet = pygame.image.load("Sprint v.8 (Alpha 1-Main Loop and Easter Egg Finished)/assets/sunbird_6_frames.png").convert_alpha()
+
+sunbird_sheet = pygame.image.load(
+    f"{ASSET_ROOT}sunbird_6_frames.png"
+).convert_alpha()
+
 SUNBIRD_FRAME_WIDTH = sunbird_sheet.get_width() // NUM_FRAMES
+
 sunbird_frames = []
 for i in range(NUM_FRAMES):
-    frame = sunbird_sheet.subsurface(pygame.Rect(i * SUNBIRD_FRAME_WIDTH, 0, SUNBIRD_FRAME_WIDTH, sunbird_sheet.get_height()))
-    frame = pygame.transform.scale(frame, (int(frame.get_width() * SUNBIRD_SCALE), int(frame.get_height() * SUNBIRD_SCALE)))
+    frame = sunbird_sheet.subsurface(
+        pygame.Rect(i * SUNBIRD_FRAME_WIDTH, 0, SUNBIRD_FRAME_WIDTH, sunbird_sheet.get_height())
+    )
+    frame = pygame.transform.scale(
+        frame,
+        (
+            int(frame.get_width() * SUNBIRD_SCALE),
+            int(frame.get_height() * SUNBIRD_SCALE),
+        ),
+    )
     sunbird_frames.append(frame)
 
 sunbird_x = -sunbird_frames[0].get_width()
