@@ -8,6 +8,9 @@ Storage repository for school code exercises and private projects.
 ### [SWOSU Capstone Project](https://github.com/Goose4244/AR-Wall-Wrap-Capstone-Storage)
 - Senior year capstone project worked on at SWOSU with classmates. Project is an AR wall wrap for the Keystone Lake visitor center done in collaboration with the USACE. Uses MindAR for image recognition and interaction, letting users scan maps and photos to explore the lake’s history and attractions via an HTML-based AR application hosted on GitHub Pages.
 
+### [SWOSU Software Engineering "GitHub Duck" Project](https://github.com/swosu/House_Stafford)
+- Group project for SWOSU Software Engineering class, designed to aid freshman programmers. Project is a "Desktop Goose" parody, but with a duck that will wander across computer screens when activated on computer. As it wanders, it will give information on how GitHub works, and advice on how to effectively use it.
+
 ### Perudo Project
 - C++/CMake clone of the Perudo dice game, created with AI assistance to test game dev and C++ skills. Implements game rules, shuffling animations, sprites, buttons for betting/bluffing, and server/client online functionality. Fully playable locally, but currently not fully functional on other computers due to release/dependency issues.
 
