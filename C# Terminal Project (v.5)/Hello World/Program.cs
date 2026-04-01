@@ -179,32 +179,32 @@ class Program
             scrolled += scroll;
 
 
-            for (int i = 0; i < platCount; i++) plats[i, 0] -= scroll;
-            for (int i = 0; i < spikeCount; i++)
+            for (int plat_move_index = 0; plat_move_index < platCount; plat_move_index++) plats[plat_move_index, 0] -= scroll;
+            for (int spike_dist_index = 0; spike_dist_index < spikeCount; spike_dist_index++)
             {
-                spikes[i] -= scroll;
-                if (spikes[i] < 0) spikes[i] = width + rand.Next(5, 20);
+                spikes[spike_dist_index] -= scroll;
+                if (spikes[spike_dist_index] < 0) spikes[spike_dist_index] = width + rand.Next(5, 20);
             }
 
             // Generate new platforms
-            for (int i = 0; i < platCount; i++)
+            for (int plat_modify_index = 0; plat_modify_index < platCount; plat_modify_index++)
             {
-                if (plats[i, 0] + plats[i, 1] < 0)
+                if (plats[plat_modify_index, 0] + plats[plat_modify_index, 1] < 0)
                 {
                     float rightMost = 0;
-                    for (int j = 0; j < platCount; j++)
-                        if (plats[j, 0] > rightMost) rightMost = plats[j, 0];
-                    plats[i, 0] = rightMost + jumpDist * 0.8f;
-                    plats[i, 1] = rand.Next(5, 12);
-                    plats[i, 2] = rand.Next(0, floorY);
+                    for (int plat_dist_index = 0; plat_dist_index < platCount; plat_dist_index++)
+                        if (plats[plat_dist_index, 0] > rightMost) rightMost = plats[plat_dist_index, 0];
+                    plats[plat_modify_index, 0] = rightMost + jumpDist * 0.8f;
+                    plats[plat_modify_index, 1] = rand.Next(5, 12);
+                    plats[plat_modify_index, 2] = rand.Next(0, floorY);
                 }
             }
 
-            // Finish line
+
             if (scrolled >= lvl.level_length && finishX < 0) finishX = width + 5f;
             if (finishX >= 0) finishX -= scroll;
 
-            // Physics
+
             vertical_velocity += gravity * (float)deltaTime;
             player_y_position += vertical_velocity * (float)deltaTime;
             grounded = false;
@@ -216,9 +216,9 @@ class Program
                 vertical_velocity = 0;
                 grounded = true;
 
-                for (int i = 0; i < spikeCount; i++)
+                for (int spike_collision_index = 0; spike_collision_index < spikeCount; spike_collision_index++)
                 {
-                    if ((int)player_x_position == (int)spikes[i])
+                    if ((int)player_x_position == (int)spikes[spike_collision_index])
                     {
                         double currentTime = hitCooldownTimer.Elapsed.TotalSeconds;
                         if (currentTime - lastHitTime >= 2.0)
@@ -232,15 +232,15 @@ class Program
             }
 
             // Platform collisions
-            for (int i = 0; i < platCount; i++)
+            for (int plat_collision_index = 0; plat_collision_index < platCount; plat_collision_index++)
             {
-                int platX = (int)plats[i, 0];
-                int platW = (int)plats[i, 1];
-                int platY = (int)plats[i, 2];
+                int plat_x = (int)plats[plat_collision_index, 0];
+                int plat_width = (int)plats[plat_collision_index, 1];
+                int plat_y = (int)plats[plat_collision_index, 2];
 
-                if (vertical_velocity >= 0 && player_y_position >= platY - 1 && player_y_position <= platY && player_x_position >= platX && player_x_position <= platX + platW)
+                if (vertical_velocity >= 0 && player_y_position >= plat_y - 1 && player_y_position <= plat_y && player_x_position >= plat_x && player_x_position <= plat_x + plat_width)
                 {
-                    player_y_position = platY - 1;
+                    player_y_position = plat_y - 1;
                     vertical_velocity = 0;
                     grounded = true;
                 }
@@ -251,16 +251,16 @@ class Program
 
             if (finishX >= 0 && Math.Abs(player_x_position - finishX) < 1.5f) return 2;
 
-            // --- RENDER ---
+
             Console.Clear();
 
-            // Row 0: Health hearts
+            // Health hearts
             Console.SetCursorPosition(0, 0);
             Console.ForegroundColor = ConsoleColor.Red;
-            for (int i = 0; i < stats.player_health; i++) Console.Write(heartChar + " ");
+            for (int health_heart_index = 0; health_heart_index < stats.player_health; health_heart_index++) Console.Write(heartChar + " ");
             Console.ForegroundColor = ConsoleColor.White;
 
-            // Row 1: Progress bar
+            // Progress bar
             int barWidth = width - 2;
             float progress = scrolled / lvl.level_length;
             if (progress > 1f) progress = 1f;
@@ -269,7 +269,7 @@ class Program
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write("[" + new string('=', filled) + new string('-', barWidth - filled) + "]");
 
-            // Player (shifted down 2 rows)
+            // Player symbol
             Console.SetCursorPosition((int)player_x_position, (int)player_y_position + 2);
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.Write("■");
@@ -281,30 +281,30 @@ class Program
 
             // Spikes
             Console.ForegroundColor = ConsoleColor.Red;
-            for (int i = 0; i < spikeCount; i++)
+            for (int spike_generator_index = 0; spike_generator_index < spikeCount; spike_generator_index++)
             {
-                int sx = (int)spikes[i];
-                if (sx >= 0 && sx < width)
+                int spike_x = (int)spikes[spike_generator_index];
+                if (spike_x >= 0 && spike_x < width)
                 {
-                    Console.SetCursorPosition(sx, height - 1);
+                    Console.SetCursorPosition(spike_x, height - 1);
                     Console.Write("^");
                 }
             }
 
             // Platforms
             Console.ForegroundColor = lvl.platColor;
-            for (int i = 0; i < platCount; i++)
+            for (int platform_generator_index = 0; platform_generator_index < platCount; platform_generator_index++)
             {
-                int dx = (int)plats[i, 0];
-                int dy = (int)plats[i, 2];
-                int dw = (int)plats[i, 1];
-                if (dx < width && dx + dw > 0)
+                int current_plat_x = (int)plats[platform_generator_index, 0];
+                int current_plat_y = (int)plats[platform_generator_index, 2];
+                int current_plat_width = (int)plats[platform_generator_index, 1];
+                if (current_plat_x < width && current_plat_x + current_plat_width > 0)
                 {
-                    int vis = Math.Min(dw, width - Math.Max(dx, 0));
-                    if (vis > 0)
+                    int visible = Math.Min(current_plat_width, width - Math.Max(current_plat_x, 0));
+                    if (visible > 0)
                     {
-                        Console.SetCursorPosition(Math.Max(dx, 0), dy + 2); // shifted down 2
-                        Console.Write(new string('-', vis));
+                        Console.SetCursorPosition(Math.Max(current_plat_x, 0), current_plat_y + 2); 
+                        Console.Write(new string('-', visible));
                     }
                 }
             }
@@ -339,9 +339,9 @@ class Program
 
         while (true)
         {
-            var k = Console.ReadKey(true).Key;
-            if (k == ConsoleKey.Y) return true;
-            if (k == ConsoleKey.N) return false;
+            var key = Console.ReadKey(true).Key;
+            if (key == ConsoleKey.Y) return true;
+            if (key == ConsoleKey.N) return false;
         }
     }
 }
