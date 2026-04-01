@@ -11,6 +11,9 @@ Storage repository for school code exercises and private projects.
 ### [SWOSU Software Engineering "GitHub Duck" Project](https://github.com/swosu/House_Stafford)
 - Group project for SWOSU Software Engineering class, designed to aid freshman programmers. Project is a "Desktop Goose" parody, but with a duck that will wander across computer screens when activated on computer. As it wanders, it will give information on how GitHub works, and advice on how to effectively use it.
 
+### SWOSU Software Engineering "Gorilla Simulator" Project
+- Group project for SWOSU Software Engineering class, designed to test team-based development structure for future, more in-depth projects. Project is a Pygame-based simulation of a pixelated gorilla in a jungle, showcasing different states and idle behaviors for the gorilla, as well as sprite-sheet based animation.
+
 ### Perudo Project
 - C++/CMake clone of the Perudo dice game, created with AI assistance to test game dev and C++ skills. Implements game rules, shuffling animations, sprites, buttons for betting/bluffing, and server/client online functionality. Fully playable locally, but currently not fully functional on other computers due to release/dependency issues.
 
