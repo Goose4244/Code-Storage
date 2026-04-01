@@ -1,6 +1,6 @@
 Gorilla Simulator
 
-Gorilla Simulator is a 2D interactive simulation game built with Python and Pygame. Players watch an autonomous gorilla walk, interact with palm trees, and trigger unique easter egg animations, including a special Harambe sequence. The game showcases character animations, AI-driven movement, and environmental interactions.
+Gorilla Simulator is a 2D interactive simulation game built with Python and Pygame. Players watch an autonomous gorilla walk, interact with palm trees, and they can trigger a unique easter egg animation. The game showcases character animations, AI-driven movement, and environmental interactions.
 
 Features
 
@@ -10,8 +10,6 @@ Tree Interaction – Trees can be damaged and destroyed, complete with explosion
 
 Sunbird Animation – Animated sunbirds fly across the screen with smooth looping frames.
 
-Easter Egg Sequence – Type harambe to trigger a special easter egg.
-
 Custom Animations – Walking, idle, and interacting are fully animated.
 
 Environmental Design – Palm trees, ground, and background create a visually engaging setting.
@@ -20,7 +18,7 @@ Controls
 
 Press G to toggle typing mode.
 
-Type harambe and press Enter to trigger the Easter Egg sequence.
+See if you can find the special easter egg!
 
 Installation
 
@@ -55,4 +53,3 @@ Shon Hakanson
 
 Logan Green
 
-Assets: Custom art for gorilla, trees, sunbirds, and characters included in the assets/ folder.
