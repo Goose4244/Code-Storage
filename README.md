@@ -14,6 +14,9 @@ Storage repository for school code exercises and private projects.
 ### SWOSU Software Engineering "Gorilla Simulator" Project
 - Group project for SWOSU Software Engineering class, designed to test team-based development structure for future, more in-depth projects. Project is a Pygame-based simulation of a pixelated gorilla in a jungle, showcasing different states and idle behaviors for the gorilla, as well as sprite-sheet based animation.
 
+### SWOSU C# "Terminal-Based Platformer" Project
+- Group project for SWOSU "Programming in C# with Unity" class, designed to learn the main ideas of C# for future Unity projects, while limiting this one to the terminal. Project is a 5-level platformer, which scrolls platforms across terminal by constantly refreshing it. Co-Developer: [Lagalag636](https://github.com/Lagalag636).
+
 ### Perudo Project
 - C++/CMake clone of the Perudo dice game, created with AI assistance to test game dev and C++ skills. Implements game rules, shuffling animations, sprites, buttons for betting/bluffing, and server/client online functionality. Fully playable locally, but currently not fully functional on other computers due to release/dependency issues.
 
