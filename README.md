@@ -5,7 +5,7 @@ Storage repository for school code exercises and private projects.
 
 ## Featured Projects
 
-### [SWOSU Capstone Project](https://github.com/Goose4244/AR-Wall-Wrap-Capstone-Storage)
+### [SWOSU Capstone Project](https://usaceswosu.github.io/ARWallWrapsKS/)
 - Senior year capstone project worked on at SWOSU with classmates. Project is an AR wall wrap for the Keystone Lake visitor center done in collaboration with the USACE. Uses MindAR for image recognition and interaction, letting users scan maps and photos to explore the lake’s history and attractions via an HTML-based AR application hosted on GitHub Pages.
 
 ### [SWOSU Software Engineering "GitHub Duck" Project](https://github.com/swosu/House_Stafford)
