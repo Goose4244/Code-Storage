@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\shonh\\Documents\\GitHub\\Code-Storage\\Content_Blocker\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{FDE683E3-182A-49CF-72A1-F99DCC0BF0CC}|Content_Blocker\\Content_Blocker.csproj|c:\\users\\shonh\\documents\\github\\code-storage\\content_blocker\\content_blocker\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FDE683E3-182A-49CF-72A1-F99DCC0BF0CC}|Content_Blocker\\Content_Blocker.csproj|solutionrelative:content_blocker\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FDE683E3-182A-49CF-72A1-F99DCC0BF0CC}|Content_Blocker\\Content_Blocker.csproj|c:\\users\\shonh\\documents\\github\\code-storage\\content_blocker\\content_blocker\\timechangeeventhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FDE683E3-182A-49CF-72A1-F99DCC0BF0CC}|Content_Blocker\\Content_Blocker.csproj|solutionrelative:content_blocker\\timechangeeventhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FDE683E3-182A-49CF-72A1-F99DCC0BF0CC}|Content_Blocker\\Content_Blocker.csproj|c:\\users\\shonh\\documents\\github\\code-storage\\content_blocker\\content_blocker\\timeinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FDE683E3-182A-49CF-72A1-F99DCC0BF0CC}|Content_Blocker\\Content_Blocker.csproj|solutionrelative:content_blocker\\timeinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\shonh\\Documents\\GitHub\\Code-Storage\\Content_Blocker\\Content_Blocker\\Program.cs",
+              "RelativeDocumentMoniker": "Content_Blocker\\Program.cs",
+              "ToolTip": "C:\\Users\\shonh\\Documents\\GitHub\\Code-Storage\\Content_Blocker\\Content_Blocker\\Program.cs",
+              "RelativeToolTip": "Content_Blocker\\Program.cs",
+              "ViewState": "AgIAACoAAAAAAAAAAAAmwEcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-24T20:33:49.225Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TimeChangeEventHandler.cs",
+              "DocumentMoniker": "C:\\Users\\shonh\\Documents\\GitHub\\Code-Storage\\Content_Blocker\\Content_Blocker\\TimeChangeEventHandler.cs",
+              "RelativeDocumentMoniker": "Content_Blocker\\TimeChangeEventHandler.cs",
+              "ToolTip": "C:\\Users\\shonh\\Documents\\GitHub\\Code-Storage\\Content_Blocker\\Content_Blocker\\TimeChangeEventHandler.cs",
+              "RelativeToolTip": "Content_Blocker\\TimeChangeEventHandler.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAAACIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-26T00:46:12.83Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TimeInitializer.cs",
+              "DocumentMoniker": "C:\\Users\\shonh\\Documents\\GitHub\\Code-Storage\\Content_Blocker\\Content_Blocker\\TimeInitializer.cs",
+              "RelativeDocumentMoniker": "Content_Blocker\\TimeInitializer.cs",
+              "ToolTip": "C:\\Users\\shonh\\Documents\\GitHub\\Code-Storage\\Content_Blocker\\Content_Blocker\\TimeInitializer.cs",
+              "RelativeToolTip": "Content_Blocker\\TimeInitializer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-25T00:33:33.947Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

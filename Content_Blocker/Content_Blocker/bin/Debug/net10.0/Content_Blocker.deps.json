@@ -1,0 +1,49 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "Content_Blocker/1.0.0": {
+        "dependencies": {
+          "Microsoft.Win32.SystemEvents": "10.0.14"
+        },
+        "runtime": {
+          "Content_Blocker.dll": {}
+        }
+      },
+      "Microsoft.Win32.SystemEvents/10.0.14": {
+        "runtime": {
+          "lib/net10.0/Microsoft.Win32.SystemEvents.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.1426.52326"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/net10.0/Microsoft.Win32.SystemEvents.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.1426.52326"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Content_Blocker/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Win32.SystemEvents/10.0.14": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-axfieK5mj+uS/wLYl0dhlRFWdNP1iKHhx/M6DZNXPCSve7q4TCogw//W6BWGsYhnWuSw55aqheHE0a8l8s1oTw==",
+      "path": "microsoft.win32.systemevents/10.0.14",
+      "hashPath": "microsoft.win32.systemevents.10.0.14.nupkg.sha512"
+    }
+  }
+}

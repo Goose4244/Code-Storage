@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "blAu1pcx4ro=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\shonh\\Documents\\GitHub\\Code-Storage\\Content_Blocker\\Content_Blocker\\Content_Blocker.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\shonh\\.nuget\\packages\\microsoft.win32.systemevents\\10.0.14\\microsoft.win32.systemevents.10.0.14.nupkg.sha512"
+  ],
+  "logs": []
+}
